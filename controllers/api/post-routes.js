@@ -28,7 +28,17 @@ router.get('/', (req, res) => {
         attributes: ['username']
       }
     ]
+  }).then(dbPostData => {
+    if (!dbPostData) {
+      res.status(404).json({ message: 'No post found with this id' });
+      return;
+    }
+    res.json(dbPostData);
   })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 
